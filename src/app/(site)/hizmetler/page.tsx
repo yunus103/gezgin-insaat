@@ -8,7 +8,7 @@ import { buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata() {
   const data = await client.fetch(servicesPageQuery, {}, { next: { tags: ["servicesPage"] } });
-  return buildMetadata(data?.seo, `Hizmetlerimiz | Gezgin İnşaat`);
+  return buildMetadata({ pageSeo: data?.seo, title: "Hizmetlerimiz" });
 }
 
 export default async function ServicesPage() {

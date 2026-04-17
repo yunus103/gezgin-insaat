@@ -21,7 +21,7 @@ const SOCIAL_ICON_MAP: Record<string, string> = {
 
 export async function generateMetadata() {
   const { page } = await client.fetch(contactPageQuery, {}, { next: { tags: ["contact"] } });
-  return buildMetadata(page?.seo, "İletişim | Gezgin İnşaat");
+  return buildMetadata({ pageSeo: page?.seo, title: "İletişim" });
 }
 
 export default async function ContactPage() {

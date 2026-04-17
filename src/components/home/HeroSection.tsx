@@ -1,7 +1,7 @@
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SanityImage } from "@/components/ui/SanityImage";
 import Link from "next/link";
-import { resolveLink } from "@/lib/utils"; // Wait I should move resolveLink to utils or keep it here. Let's keep it in utils if it's there. Actually let's just make it a local function.
+
 
 interface HeroSectionProps {
   data: {
