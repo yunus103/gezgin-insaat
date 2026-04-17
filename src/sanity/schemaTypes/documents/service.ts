@@ -15,6 +15,9 @@ export const serviceType = defineType({
       fields: [defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() })],
       validation: (Rule) => Rule.required(),
     }),
+    defineField({ name: "preTitle", title: "Üst Başlık (Örn: SEKTÖRÜN ZİRVESİ)", type: "string" }),
+    defineField({ name: "shortDescription", title: "Kısa Açıklama", type: "text", rows: 3 }),
+    defineField({ name: "features", title: "Özellikler", type: "array", of: [{ type: "string" }] }),
     defineField({
       name: "body",
       title: "İçerik",

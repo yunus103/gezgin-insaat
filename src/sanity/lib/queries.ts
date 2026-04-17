@@ -21,24 +21,60 @@ export const layoutQuery = groq`{
 // ─── Sayfalar ──────────────────────────────────────────────────────────────────
 
 export const homePageQuery = groq`*[_type == "homePage"][0] {
-  heroTitle, heroSubtitle, heroCtaLabel,
-  heroCtaLink {
-    linkType,
-    manual,
-    internal->{ _type, "slug": slug.current }
-  },
+  heroPreTitle, heroTitle, heroSubtitle,
   heroImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  
+  aboutTitle, aboutText, aboutExperienceYears,
+  aboutImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  aboutStats[] { value, label },
+
+  servicesTitle, servicesSubtitle,
+
+  whyUsTitle,
+  whyUsImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  whyUsFeatures[] { title, description },
+
+  projectsTitle,
+  featuredProjects[]->{ title, slug, mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop } },
+
+  ctaTitle, ctaSubtitle, ctaButtonLabel,
+
   seo
 }`;
 
 export const aboutPageQuery = groq`*[_type == "aboutPage"][0] {
-  pageTitle, pageSubtitle, body,
-  mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  heroTitle,
+  heroImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  
+  historyPreTitle, historyTitle, historyText,
+  historyImage1 { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  historyImage1Label, historyImage1Sublabel,
+  historyImage2 { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  historyImage2Label, historyImage2Sublabel,
+
+  values[] { title, description },
+
+  qualityPreTitle, qualityTitle, qualityDescription,
+  qualityCertificates[] { icon, title, subtitle },
+  qualityStats[] { value, label },
+
+  sustainabilityPreTitle, sustainabilityTitle, sustainabilityDescription,
+  sustainabilityImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+
+  ctaTitle, ctaSubtitle, ctaButtonLabel1, ctaButtonLabel2,
+
   seo
 }`;
 
-export const contactPageQuery = groq`*[_type == "contactPage"][0] {
-  pageTitle, pageSubtitle, formTitle, successMessage, seo
+export const contactPageQuery = groq`{
+  "page": *[_type == "contactPage"][0] {
+    heroPreTitle, heroTitle, heroSubtitle, heroBadgeLine1, heroBadgeLine2,
+    contactInfoTitle, formTitle, successMessage, seo
+  },
+  "settings": *[_type == "siteSettings"][0] {
+    contactInfo { phone, email, address, mapIframe },
+    socialLinks[] { platform, url }
+  }
 }`;
 
 export const blogPageQuery = groq`*[_type == "blogPage"][0] {
@@ -46,11 +82,23 @@ export const blogPageQuery = groq`*[_type == "blogPage"][0] {
 }`;
 
 export const servicesPageQuery = groq`*[_type == "servicesPage"][0] {
-  pageTitle, pageSubtitle, ctaLabel, ctaLink, seo
+  heroTitle, heroSubtitle, heroBadge,
+  
+  processTitle, processHighlightedWord, processDescription,
+  processes[] { title, description },
+  
+  ctaTitle, ctaDescription, ctaButtonText1, ctaButtonLink1, ctaButtonText2, ctaButtonLink2,
+  
+  seo
 }`;
 
 export const projectsPageQuery = groq`*[_type == "projectsPage"][0] {
-  pageTitle, pageSubtitle, ctaLabel, ctaLink, seo
+  heroTitle,
+  heroImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  archivePreTitle, archiveTitle,
+  stats[] { value, label },
+  ctaTitle, ctaButtonText1, ctaButtonLink1, ctaButtonText2, ctaButtonLink2,
+  seo
 }`;
 
 // ─── Blog ──────────────────────────────────────────────────────────────────────
@@ -90,7 +138,7 @@ export const blogRelatedPostsQuery = groq`*[_type == "blogPost" && category._ref
 // ─── Hizmetler ─────────────────────────────────────────────────────────────────
 
 export const serviceListQuery = groq`*[_type == "service"] | order(_createdAt asc) {
-  title, slug,
+  title, slug, preTitle, shortDescription, features,
   mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
 }`;
 
@@ -107,7 +155,7 @@ export const serviceBySlugQuery = groq`*[_type == "service" && slug.current == $
 // ─── Projeler ──────────────────────────────────────────────────────────────────
 
 export const projectListQuery = groq`*[_type == "project"] | order(_createdAt asc) {
-  title, slug,
+  title, slug, location, category, status, shortDescription,
   mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
 }`;
 

@@ -15,6 +15,35 @@ export const projectType = defineType({
       fields: [defineField({ name: "alt", title: "Alt Metni", type: "string", validation: (Rule) => Rule.required() })],
       validation: (Rule) => Rule.required(),
     }),
+    defineField({ name: "location", title: "Konum (Örn: Kadıköy, İstanbul)", type: "string" }),
+    defineField({
+      name: "category",
+      title: "Kategori",
+      type: "string",
+      options: {
+        list: [
+          { title: "Konut", value: "konut" },
+          { title: "Ticari", value: "ticari" },
+          { title: "Altyapı", value: "altyapi" },
+          { title: "Karma", value: "karma" },
+        ],
+      },
+    }),
+    defineField({
+      name: "status",
+      title: "Durum",
+      type: "string",
+      options: {
+        list: [
+          { title: "Tamamlandı", value: "tamamlandi" },
+          { title: "Devam Ediyor", value: "devam-ediyor" },
+          { title: "Satışta", value: "satista" },
+          { title: "Planlama", value: "planlama" },
+        ],
+      },
+      initialValue: "tamamlandi",
+    }),
+    defineField({ name: "shortDescription", title: "Kısa Açıklama", type: "text", rows: 2 }),
     defineField({
       name: "body",
       title: "İçerik",

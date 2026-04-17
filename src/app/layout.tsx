@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { buildMetadata } from "@/lib/seo";
 
@@ -7,7 +7,8 @@ import { client } from "@/sanity/lib/client";
 import { layoutQuery } from "@/sanity/lib/queries";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-headline", display: "swap" });
 
 export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata();
@@ -17,8 +18,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { settings } = await client.fetch(layoutQuery, {}, { next: { tags: ["layout"] } });
 
   return (
-    <html lang="tr" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="tr" suppressHydrationWarning className={`${inter.variable} ${manrope.variable}`}>
+      <body className="font-body antialiased">
         {settings?.gtmId && <GoogleTagManager gtmId={settings.gtmId} />}
         {settings?.gaId && <GoogleAnalytics gaId={settings.gaId} />}
         {children}

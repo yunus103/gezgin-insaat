@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { SanityImage } from "@/components/ui/SanityImage";
-import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { RiMenu3Line, RiCloseLine, RiArrowDownSLine } from "react-icons/ri";
 import { cn } from "@/lib/utils";
@@ -24,7 +23,16 @@ function resolveHref(item: NavItem): string {
 export function Header({ settings, navigation }: { settings: any; navigation: any }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const links: NavItem[] = navigation?.headerLinks || [];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Sayfa değiştiğinde menüyü kapat
   useEffect(() => {
@@ -37,34 +45,27 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
     return pathname.startsWith(href);
   };
 
+  const isHomePage = pathname === "/";
+  const isTransparent = isHomePage && !scrolled;
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-20 items-center justify-between px-4">
-        <Link href="/" className="flex items-center group h-full">
-          <div className="relative flex items-center justify-start transition-all duration-200 group-hover:scale-[1.02] active:scale-95 h-full py-4 max-w-[250px] md:max-w-[450px]">
-            {settings?.logo ? (
-              <>
-                <SanityImage
-                  image={settings.logo}
-                  width={800}
-                  height={200}
-                  fit="max"
-                  className="h-full w-auto object-contain object-left dark:hidden"
-                  priority
-                />
-                <SanityImage
-                  image={settings.logo}
-                  width={800}
-                  height={200}
-                  fit="max"
-                  className="h-full w-auto object-contain object-left hidden dark:block grayscale invert opacity-90"
-                  priority
-                />
-              </>
-            ) : (
-              <span className="font-bold text-xl tracking-tight leading-none">{settings?.siteName}</span>
-            )}
-          </div>
+    <header className={cn(
+      "fixed top-0 z-40 w-full transition-all duration-300",
+      !isTransparent 
+        ? "bg-background/90 backdrop-blur border-b shadow-sm" 
+        : "bg-transparent border-b border-white/10"
+    )}>
+      <div className="container mx-auto flex h-16 md:h-20 items-center justify-between px-4">
+        <Link href="/" className="flex items-center shrink-0 group">
+          {settings?.logo?.asset?.url ? (
+            <img
+              src={settings.logo.asset.url}
+              alt={settings.logo.alt || settings.siteName || "Logo"}
+              className="h-14 md:h-16 w-auto transition-transform duration-200 group-hover:scale-[1.02] active:scale-95"
+            />
+          ) : (
+            <span className="font-bold text-xl tracking-tight leading-none">{settings?.siteName}</span>
+          )}
         </Link>
 
         {/* Desktop Nav */}
@@ -72,14 +73,18 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
           {links.map((item, i) => (
             <DesktopNavItem key={i} item={item} active={isActive(item)} />
           ))}
-          <ThemeToggle />
         </nav>
 
         {/* Mobile Controls */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menüyü aç/kapat">
-            {menuOpen ? <RiCloseLine size={20} /> : <RiMenu3Line size={20} />}
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setMenuOpen(!menuOpen)} 
+            aria-label="Menüyü aç/kapat"
+            className={cn(!isTransparent ? "text-foreground" : "text-white")}
+          >
+            {menuOpen ? <RiCloseLine size={24} /> : <RiMenu3Line size={24} />}
           </Button>
         </div>
       </div>
@@ -136,6 +141,16 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
 function DesktopNavItem({ item, active }: { item: NavItem; active: boolean }) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const isHomePage = pathname === "/";
+  const isTransparent = isHomePage && !scrolled;
 
   // Alt menü linklerinden biri aktifse üst menüyü de aktif boyarız
   const isSubActive = item.subLinks?.some(sub => pathname === resolveHref(sub));
@@ -149,7 +164,7 @@ function DesktopNavItem({ item, active }: { item: NavItem; active: boolean }) {
         rel={item.openInNewTab ? "noopener noreferrer" : undefined}
         className={cn(
           "text-sm font-medium transition-colors hover:text-primary",
-          reallyActive ? "text-primary font-semibold" : "text-foreground/70"
+          reallyActive ? "text-primary font-semibold" : !isTransparent ? "text-foreground/70" : "text-white/80"
         )}
       >
         {item.label}
@@ -167,7 +182,7 @@ function DesktopNavItem({ item, active }: { item: NavItem; active: boolean }) {
         href={resolveHref(item)}
         className={cn(
           "flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary",
-          reallyActive ? "text-primary font-semibold" : "text-foreground/70"
+          reallyActive ? "text-primary font-semibold" : !isTransparent ? "text-foreground/70" : "text-white/80"
         )}
       >
         {item.label}
