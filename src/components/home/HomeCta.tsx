@@ -16,7 +16,7 @@ export function HomeCta({ data }: HomeCtaProps) {
 
   return (
     <section className="py-32 bg-primary" id="contact">
-      <div className="max-w-[1920px] mx-auto px-4 md:px-12 text-center text-on-primary">
+      <div className="w-full px-4 md:px-12 text-center text-on-primary">
         <FadeIn direction="up">
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-black font-headline uppercase mb-12 monolithic-text whitespace-pre-line">
             {title}

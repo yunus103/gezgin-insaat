@@ -39,7 +39,7 @@ export function HeroSection({ data }: HeroSectionProps) {
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent"></div>
       </div>
-      <div className="relative z-10 w-full max-w-[1920px] mx-auto px-4 md:px-12">
+      <div className="relative z-10 w-full px-4 md:px-12" style={{ boxSizing: "border-box" }}>
         <div className="max-w-3xl">
           <FadeIn direction="up" duration={0.6}>
             <span className="text-primary font-headline font-bold tracking-widest uppercase text-sm mb-6 block">

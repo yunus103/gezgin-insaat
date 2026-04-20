@@ -139,12 +139,18 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground font-body selection:bg-primary-fixed selection:text-on-primary-fixed;
+    box-sizing: border-box;
   }
   html {
     @apply font-sans;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  body {
+    @apply bg-background text-foreground font-body selection:bg-primary-fixed selection:text-on-primary-fixed;
+    overflow-x: hidden;
+    max-width: 100%;
+    position: relative;
   }
 }
 

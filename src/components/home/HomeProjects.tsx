@@ -36,7 +36,7 @@ export function HomeProjects({ data }: HomeProjectsProps) {
 
   return (
     <section className="py-32 bg-surface-container-highest" id="projects">
-      <div className="max-w-[1920px] mx-auto px-4 md:px-12">
+      <div className="w-full px-4 md:px-12">
         <FadeIn direction="up">
           <div className="flex justify-between items-end mb-16">
             <h2 className="text-4xl md:text-6xl font-black font-headline text-on-surface uppercase monolithic-text">

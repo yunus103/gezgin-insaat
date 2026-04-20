@@ -23,7 +23,7 @@ export function HomeAbout({ data }: HomeAboutProps) {
 
   return (
     <section className="py-16 md:py-0 md:h-[calc(100vh-5rem)] min-h-[600px] flex items-center bg-surface" id="about">
-      <div className="max-w-[1920px] mx-auto px-4 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+      <div className="w-full px-4 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
         <FadeIn direction="right" duration={0.6} className="flex justify-center md:justify-start">
           <div className="relative w-full max-w-md lg:max-w-lg">
             {data?.aboutImage ? (

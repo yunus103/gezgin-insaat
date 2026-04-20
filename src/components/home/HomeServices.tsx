@@ -25,7 +25,7 @@ export function HomeServices({ data }: HomeServicesProps) {
 
   return (
     <section className="py-32 bg-surface-container-low" id="services">
-      <div className="max-w-[1920px] mx-auto px-4 md:px-12">
+      <div className="w-full px-4 md:px-12">
         <FadeIn direction="up">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 md:mb-24 gap-8">
             <h2 className="text-4xl md:text-6xl font-black font-headline text-on-surface uppercase monolithic-text">

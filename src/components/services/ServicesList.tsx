@@ -41,13 +41,7 @@ export function ServicesList({ services }: { services: any[] }) {
                     </li>
                   ))}
                 </ul>
-                <Link
-                   href={`/hizmetler/${service.slug?.current}`}
-                   className="inline-flex items-center gap-2 font-bold uppercase tracking-widest text-xs text-primary hover:text-primary-container transition-colors"
-                >
-                  Detayları İncele
-                  <RiArrowRightLine size={16} />
-                </Link>
+                <div className="h-4"></div> {/* Spacer instead of link */}
               </FadeIn>
             </div>
 
@@ -61,10 +55,10 @@ export function ServicesList({ services }: { services: any[] }) {
                   image={service.mainImage}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+                  className="w-full h-full object-cover transition-all duration-700" 
                 />
               ) : (
-                <div className="w-full h-full bg-surface-dim grayscale hover:grayscale-0 transition-all duration-700"></div>
+                <div className="w-full h-full bg-surface-dim transition-all duration-700"></div>
               )}
             </div>
           </div>
