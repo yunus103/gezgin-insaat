@@ -5,7 +5,13 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { RiMenu3Line, RiCloseLine, RiArrowDownSLine, RiPhoneLine, RiMailLine } from "react-icons/ri";
+import {
+  RiMenu3Line,
+  RiCloseLine,
+  RiArrowDownSLine,
+  RiPhoneLine,
+  RiMailLine,
+} from "react-icons/ri";
 import { cn } from "@/lib/utils";
 
 type NavItem = {
@@ -19,7 +25,13 @@ function resolveHref(item: NavItem): string {
   return item.href || "#";
 }
 
-export function Header({ settings, navigation }: { settings: any; navigation: any }) {
+export function Header({
+  settings,
+  navigation,
+}: {
+  settings: any;
+  navigation: any;
+}) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -88,7 +100,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
         "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
         !isTransparent
           ? "bg-background/95 backdrop-blur-md border-b border-border/60 shadow-sm"
-          : "bg-transparent border-b border-white/10"
+          : "bg-transparent border-b border-white/10",
       )}
       style={{ width: "100%", maxWidth: "100vw", boxSizing: "border-box" }}
     >
@@ -98,19 +110,27 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
         style={{ boxSizing: "border-box" }}
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center shrink-0 group" style={{ minWidth: 0 }}>
+        <Link
+          href="/"
+          className="flex items-center shrink-0 group"
+          style={{ minWidth: 0 }}
+        >
           {settings?.logo?.asset?.url ? (
             <img
               src={settings.logo.asset.url}
               alt={settings.logo.alt || settings.siteName || "Logo"}
-              className="h-12 md:h-14 w-auto transition-all duration-300 group-hover:brightness-110 group-hover:scale-[1.02] active:scale-95"
-              style={{ display: "block", maxWidth: "180px", objectFit: "contain" }}
+              className="h-12 md:h-16 w-auto transition-all duration-300 group-hover:brightness-110 group-hover:scale-[1.02] active:scale-95 drop-shadow-[0_0_6px_rgba(0,0,0,0.3)]"
+              style={{
+                display: "block",
+                maxWidth: "180px",
+                objectFit: "contain",
+              }}
             />
           ) : (
             <span
               className={cn(
                 "font-bold text-xl md:text-2xl tracking-tight leading-none font-headline transition-colors",
-                isTransparent ? "text-white" : "text-foreground"
+                isTransparent ? "text-white" : "text-foreground",
               )}
             >
               {settings?.siteName}
@@ -140,7 +160,7 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
               "flex items-center justify-center w-10 h-10 rounded-sm transition-all duration-200 active:scale-90",
               isTransparent
                 ? "text-white hover:bg-white/10"
-                : "text-foreground hover:bg-muted"
+                : "text-foreground hover:bg-muted",
             )}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -194,7 +214,12 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 220 }}
               className="fixed top-0 right-0 h-screen bg-background z-50 md:hidden flex flex-col shadow-2xl"
-              style={{ width: "min(100vw, 420px)", maxWidth: "100vw", overflowY: "auto", overflowX: "hidden" }}
+              style={{
+                width: "min(100vw, 420px)",
+                maxWidth: "100vw",
+                overflowY: "auto",
+                overflowX: "hidden",
+              }}
             >
               {/* Drawer Header */}
               <div
@@ -211,7 +236,11 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                       src={settings.logo.asset.url}
                       alt={settings.logo.alt || settings.siteName || "Logo"}
                       className="h-10 w-auto"
-                      style={{ display: "block", maxWidth: "150px", objectFit: "contain" }}
+                      style={{
+                        display: "block",
+                        maxWidth: "150px",
+                        objectFit: "contain",
+                      }}
                     />
                   ) : (
                     <span className="font-bold text-xl tracking-tight font-headline">
@@ -236,7 +265,11 @@ export function Header({ settings, navigation }: { settings: any; navigation: an
                       key={i}
                       initial={{ opacity: 0, x: 30 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.07 + 0.1, duration: 0.35, ease: "easeOut" }}
+                      transition={{
+                        delay: i * 0.07 + 0.1,
+                        duration: 0.35,
+                        ease: "easeOut",
+                      }}
                     >
                       <MobileNavItem
                         item={item}
@@ -300,7 +333,9 @@ function DesktopNavItem({
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  const isSubActive = item.subLinks?.some((sub) => pathname === resolveHref(sub));
+  const isSubActive = item.subLinks?.some(
+    (sub) => pathname === resolveHref(sub),
+  );
   const reallyActive = active || isSubActive;
 
   const linkClass = cn(
@@ -308,8 +343,8 @@ function DesktopNavItem({
     reallyActive
       ? "text-primary font-semibold"
       : isTransparent
-      ? "text-white/85 hover:text-white"
-      : "text-foreground/70 hover:text-foreground"
+        ? "text-white/85 hover:text-white"
+        : "text-foreground/70 hover:text-foreground",
   );
 
   if (!item.subLinks || item.subLinks.length === 0) {
@@ -318,7 +353,11 @@ function DesktopNavItem({
         href={resolveHref(item)}
         target={item.openInNewTab ? "_blank" : undefined}
         rel={item.openInNewTab ? "noopener noreferrer" : undefined}
-        className={cn(linkClass, "after:absolute after:bottom-[-3px] after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full", reallyActive && "after:w-full")}
+        className={cn(
+          linkClass,
+          "after:absolute after:bottom-[-3px] after:left-0 after:h-px after:w-0 after:bg-primary after:transition-all after:duration-300 hover:after:w-full",
+          reallyActive && "after:w-full",
+        )}
       >
         {item.label}
       </Link>
@@ -336,7 +375,10 @@ function DesktopNavItem({
         aria-expanded={isOpen}
       >
         {item.label}
-        <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+        <motion.span
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
           <RiArrowDownSLine size={16} />
         </motion.span>
       </button>
@@ -361,7 +403,9 @@ function DesktopNavItem({
                     rel={sub.openInNewTab ? "noopener noreferrer" : undefined}
                     className={cn(
                       "flex items-center px-4 py-2.5 text-sm font-medium rounded-sm hover:bg-muted transition-colors",
-                      subActive ? "text-primary bg-primary/5" : "text-foreground/70 hover:text-foreground"
+                      subActive
+                        ? "text-primary bg-primary/5"
+                        : "text-foreground/70 hover:text-foreground",
                     )}
                   >
                     {sub.label}
@@ -389,7 +433,9 @@ function MobileNavItem({
   pathname: string;
 }) {
   const [subOpen, setSubOpen] = useState(false);
-  const isSubActive = item.subLinks?.some((sub) => pathname === resolveHref(sub));
+  const isSubActive = item.subLinks?.some(
+    (sub) => pathname === resolveHref(sub),
+  );
   const reallyActive = active || isSubActive;
 
   if (!item.subLinks || item.subLinks.length === 0) {
@@ -399,7 +445,9 @@ function MobileNavItem({
         onClick={onClose}
         className={cn(
           "block py-3.5 text-2xl font-bold font-headline tracking-tight border-b border-border/20 transition-colors",
-          reallyActive ? "text-primary" : "text-foreground/80 hover:text-primary"
+          reallyActive
+            ? "text-primary"
+            : "text-foreground/80 hover:text-primary",
         )}
       >
         {item.label}
@@ -413,11 +461,16 @@ function MobileNavItem({
         onClick={() => setSubOpen(!subOpen)}
         className={cn(
           "flex items-center justify-between w-full py-3.5 text-2xl font-bold font-headline tracking-tight transition-colors",
-          reallyActive ? "text-primary" : "text-foreground/80 hover:text-primary"
+          reallyActive
+            ? "text-primary"
+            : "text-foreground/80 hover:text-primary",
         )}
       >
         {item.label}
-        <motion.span animate={{ rotate: subOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+        <motion.span
+          animate={{ rotate: subOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+        >
           <RiArrowDownSLine size={22} />
         </motion.span>
       </button>
@@ -441,7 +494,9 @@ function MobileNavItem({
                     onClick={onClose}
                     className={cn(
                       "py-2 text-lg font-medium transition-colors",
-                      subActive ? "text-primary" : "text-muted-foreground hover:text-primary"
+                      subActive
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-primary",
                     )}
                   >
                     {sub.label}
