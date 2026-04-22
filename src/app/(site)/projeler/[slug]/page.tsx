@@ -69,12 +69,12 @@ export default async function ProjectPage({ params }: Props) {
             
             <div className="flex flex-wrap gap-3 mb-6">
               {project.category && (
-                <span className="bg-primary/20 backdrop-blur-md text-primary-fixed border border-primary/30 px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
+                <span className="bg-primary text-on-primary px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
                   {project.category === "konut" ? "Konut" : project.category === "ticari" ? "Ticari" : project.category === "altyapi" ? "Altyapı" : "Karma"}
                 </span>
               )}
               {project.status && (
-                <span className="bg-surface/10 backdrop-blur-md text-on-primary border border-surface/20 px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
+                <span className="bg-white/10 text-on-primary border border-white/10 px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
                   {project.status === "tamamlandi" ? "Tamamlandı" : project.status === "devam-ediyor" ? "Devam Ediyor" : project.status === "satista" ? "Satışta" : "Planlama"}
                 </span>
               )}
