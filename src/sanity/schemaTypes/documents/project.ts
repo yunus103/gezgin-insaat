@@ -8,6 +8,13 @@ export const projectType = defineType({
     defineField({ name: "title", title: "Başlık", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (Rule) => Rule.required() }),
     defineField({
+      name: "isFeatured",
+      title: "Ana Sayfada Göster",
+      description: "Bu proje ana sayfadaki öne çıkanlar bölümünde gösterilsin mi?",
+      type: "boolean",
+      initialValue: false,
+    }),
+    defineField({
       name: "mainImage",
       title: "Ana Görsel",
       type: "image",
@@ -23,9 +30,16 @@ export const projectType = defineType({
       options: {
         list: [
           { title: "Konut", value: "konut" },
+          { title: "Villa", value: "villa" },
           { title: "Ticari", value: "ticari" },
-          { title: "Altyapı", value: "altyapi" },
+          { title: "Ofis", value: "ofis" },
+          { title: "Endüstriyel", value: "endustriyel" },
+          { title: "Restorasyon", value: "restorasyon" },
           { title: "Karma", value: "karma" },
+          { title: "Altyapı", value: "altyapi" },
+          { title: "Otel", value: "otel" },
+          { title: "Eğitim", value: "egitim" },
+          { title: "Sağlık", value: "saglik" },
         ],
       },
     }),

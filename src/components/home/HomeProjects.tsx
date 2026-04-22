@@ -76,7 +76,11 @@ export function HomeProjects({ data }: HomeProjectsProps) {
                     <h3 className="text-2xl md:text-3xl font-black font-headline uppercase mb-2 text-on-surface">
                       {project.title}
                     </h3>
-                    {project.fallbackMeta && (
+                    {(project.location || project.category) ? (
+                      <p className="text-on-surface-variant font-headline font-bold tracking-widest uppercase text-xs">
+                        {project.location}{project.location && project.category && " | "}{project.category === "konut" ? "Konut" : project.category === "ticari" ? "Ticari" : project.category === "altyapi" ? "Altyapı" : project.category === "karma" ? "Karma" : project.category}
+                      </p>
+                    ) : project.fallbackMeta && (
                       <p className="text-on-surface-variant font-headline font-bold tracking-widest uppercase text-xs">
                         {project.fallbackMeta}
                       </p>

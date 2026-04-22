@@ -35,7 +35,11 @@ export const homePageQuery = groq`*[_type == "homePage"][0] {
   whyUsFeatures[] { title, description },
 
   projectsTitle,
-  featuredProjects[]->{ title, slug, mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop } },
+  "featuredProjects": coalesce(
+    featuredProjects[]->{ title, slug, location, category, mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop } },
+    *[_type == "project" && isFeatured == true] | order(_createdAt desc) [0...4] { title, slug, location, category, mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop } },
+    *[_type == "project"] | order(_createdAt desc) [0...4] { title, slug, location, category, mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop } }
+  ),
 
   ctaTitle, ctaSubtitle, ctaButtonLabel,
 

@@ -6,13 +6,20 @@ import { SanityImage } from "@/components/ui/SanityImage";
 import { RiMapPin2Line } from "react-icons/ri";
 import { FadeIn } from "@/components/ui/FadeIn";
 
-const CATEGORIES = [
-  { label: "Tümü", value: "all" },
-  { label: "Konut", value: "konut" },
-  { label: "Ticari", value: "ticari" },
-  { label: "Altyapı", value: "altyapi" },
-  { label: "Karma", value: "karma" },
-];
+const CATEGORY_LABELS: Record<string, string> = {
+  all: "Tümü",
+  konut: "Konut",
+  villa: "Villa",
+  ticari: "Ticari",
+  ofis: "Ofis",
+  endustriyel: "Endüstriyel",
+  restorasyon: "Restorasyon",
+  karma: "Karma",
+  altyapi: "Altyapı",
+  otel: "Otel",
+  egitim: "Eğitim",
+  saglik: "Sağlık",
+};
 
 const STATUS_LABELS: Record<string, string> = {
   "tamamlandi": "Tamamlandı",
@@ -28,6 +35,17 @@ interface ProjectsGridProps {
 
 export function ProjectsGrid({ data, projects }: ProjectsGridProps) {
   const [activeCategory, setActiveCategory] = useState("all");
+
+  // Mevcut projelerden benzersiz kategorileri çıkar
+  const availableCategories = [
+    "all",
+    ...Array.from(new Set(projects.map((p) => p.category).filter(Boolean))),
+  ];
+
+  const categoriesToRender = availableCategories.map((val) => ({
+    label: CATEGORY_LABELS[val as string] || (val as string).charAt(0).toUpperCase() + (val as string).slice(1),
+    value: val as string,
+  }));
 
   const filtered = projects.filter((p) =>
     activeCategory === "all" ? true : p.category === activeCategory
@@ -46,7 +64,7 @@ export function ProjectsGrid({ data, projects }: ProjectsGridProps) {
             <h2 className="text-2xl md:text-3xl font-headline font-bold text-on-background tracking-tighter">{archiveTitle}</h2>
           </div>
           <div className="flex flex-wrap gap-6 md:gap-10 font-label text-sm font-semibold tracking-widest uppercase">
-            {CATEGORIES.map((cat) => (
+            {categoriesToRender.map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setActiveCategory(cat.value)}

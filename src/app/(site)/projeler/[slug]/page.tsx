@@ -11,6 +11,27 @@ import Link from "next/link";
 import { Lightbox } from "@/components/ui/Lightbox";
 import { ArrowLeft } from "lucide-react";
 
+const CATEGORY_LABELS: Record<string, string> = {
+  konut: "Konut",
+  villa: "Villa",
+  ticari: "Ticari",
+  ofis: "Ofis",
+  endustriyel: "Endüstriyel",
+  restorasyon: "Restorasyon",
+  karma: "Karma",
+  altyapi: "Altyapı",
+  otel: "Otel",
+  egitim: "Eğitim",
+  saglik: "Sağlık",
+};
+
+const STATUS_LABELS: Record<string, string> = {
+  "tamamlandi": "Tamamlandı",
+  "devam-ediyor": "Devam Ediyor",
+  "satista": "Satışta",
+  "planlama": "Planlama",
+};
+
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
@@ -70,12 +91,12 @@ export default async function ProjectPage({ params }: Props) {
             <div className="flex flex-wrap gap-3 mb-6">
               {project.category && (
                 <span className="bg-primary text-on-primary px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
-                  {project.category === "konut" ? "Konut" : project.category === "ticari" ? "Ticari" : project.category === "altyapi" ? "Altyapı" : "Karma"}
+                  {CATEGORY_LABELS[project.category] || project.category}
                 </span>
               )}
               {project.status && (
                 <span className="bg-white/10 text-on-primary border border-white/10 px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
-                  {project.status === "tamamlandi" ? "Tamamlandı" : project.status === "devam-ediyor" ? "Devam Ediyor" : project.status === "satista" ? "Satışta" : "Planlama"}
+                  {STATUS_LABELS[project.status] || project.status}
                 </span>
               )}
             </div>
@@ -115,14 +136,14 @@ export default async function ProjectPage({ params }: Props) {
                     {project.category && (
                       <div className="flex flex-col pl-4 border-l-2 border-primary">
                         <span className="text-xs font-headline uppercase tracking-widest text-on-surface-variant mb-1">Kategori</span>
-                        <span className="text-lg text-secondary capitalize">{project.category}</span>
+                        <span className="text-lg text-secondary capitalize">{CATEGORY_LABELS[project.category] || project.category}</span>
                       </div>
                     )}
 
                     {project.status && (
                       <div className="flex flex-col pl-4 border-l-2 border-primary">
                         <span className="text-xs font-headline uppercase tracking-widest text-on-surface-variant mb-1">Durum</span>
-                        <span className="text-lg text-secondary capitalize">{project.status.replace('-', ' ')}</span>
+                        <span className="text-lg text-secondary capitalize">{STATUS_LABELS[project.status] || project.status}</span>
                       </div>
                     )}
                   </div>
