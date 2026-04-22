@@ -160,8 +160,9 @@ export const projectListQuery = groq`*[_type == "project"] | order(_createdAt as
 }`;
 
 export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $slug][0] {
-  title, slug,
+  title, slug, location, category, status, shortDescription,
   mainImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
+  gallery[] { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
   body[] {
     ...,
     _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, alignment, size, hotspot, crop }

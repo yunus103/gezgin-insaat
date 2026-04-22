@@ -45,7 +45,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             <span className="text-primary font-headline font-bold tracking-widest uppercase text-sm mb-6 block">
               {preTitle}
             </span>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-headline text-primary leading-[0.9] monolithic-text uppercase mb-8 whitespace-pre-line">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-headline text-primary leading-[1.1] uppercase mb-8 whitespace-pre-line">
               {title}
             </h1>
             <p className="text-lg md:text-xl text-on-surface-variant max-w-xl mb-12 font-light leading-relaxed">

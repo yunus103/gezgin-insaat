@@ -7,8 +7,9 @@ import { buildMetadata } from "@/lib/seo";
 import { RichText } from "@/components/ui/RichText";
 import { SanityImage } from "@/components/ui/SanityImage";
 import { FadeIn } from "@/components/ui/FadeIn";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Lightbox } from "@/components/ui/Lightbox";
+import { ArrowLeft } from "lucide-react";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -40,31 +41,125 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) notFound();
 
   return (
-    <article className="container mx-auto px-4 py-16 max-w-3xl break-words overflow-x-hidden">
-      <FadeIn direction="up">
-        <Button variant="ghost" className="mb-8 -ml-2" render={<Link href="/projeler" />}>
-          ← Projelere Dön
-        </Button>
-        <h1 className="text-4xl font-bold mb-8">{project.title}</h1>
-      </FadeIn>
-
-      {project.mainImage && (
-        <FadeIn delay={0.15}>
-          <div className="relative h-64 md:h-96 rounded-xl overflow-hidden mb-12">
+    <article className="min-h-screen bg-surface">
+      {/* Hero Section */}
+      <section className="relative h-[80vh] min-h-[600px] flex items-end pb-16 pt-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          {project.mainImage ? (
             <SanityImage
               image={project.mainImage}
               fill
-              sizes="(max-width: 768px) 100vw, 800px"
-              className="object-cover"
+              sizes="100vw"
+              quality={90}
+              className="object-cover grayscale-[10%] brightness-50"
               priority
             />
-          </div>
-        </FadeIn>
-      )}
+          ) : (
+            <div className="absolute inset-0 bg-surface-container-highest"></div>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+        </div>
+        
+        <div className="relative z-10 w-full px-4 md:px-12" style={{ boxSizing: "border-box" }}>
+          <FadeIn direction="up">
+            <Link href="/projeler" className="inline-flex items-center text-on-primary/70 hover:text-on-primary transition-colors mb-8 font-headline text-sm uppercase tracking-widest">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Projelere Dön
+            </Link>
+            
+            <div className="flex flex-wrap gap-3 mb-6">
+              {project.category && (
+                <span className="bg-primary/20 backdrop-blur-md text-primary-fixed border border-primary/30 px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
+                  {project.category === "konut" ? "Konut" : project.category === "ticari" ? "Ticari" : project.category === "altyapi" ? "Altyapı" : "Karma"}
+                </span>
+              )}
+              {project.status && (
+                <span className="bg-surface/10 backdrop-blur-md text-on-primary border border-surface/20 px-4 py-1.5 rounded-none font-headline text-xs uppercase tracking-widest">
+                  {project.status === "tamamlandi" ? "Tamamlandı" : project.status === "devam-ediyor" ? "Devam Ediyor" : project.status === "satista" ? "Satışta" : "Planlama"}
+                </span>
+              )}
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-headline text-on-primary leading-[1.1] uppercase mb-6 max-w-5xl">
+              {project.title}
+            </h1>
+            
+            {project.shortDescription && (
+              <p className="text-xl md:text-2xl text-on-primary/80 font-light max-w-3xl leading-relaxed">
+                {project.shortDescription}
+              </p>
+            )}
+          </FadeIn>
+        </div>
+      </section>
 
-      <FadeIn delay={0.25}>
-        <RichText value={project.body} />
-      </FadeIn>
+      {/* Content & Metadata Section */}
+      <section className="bg-surface-container-low py-20 md:py-32">
+        <div className="w-full px-4 md:px-12" style={{ boxSizing: "border-box" }}>
+          <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
+            
+            {/* Sidebar (Metadata) */}
+            <div className="w-full lg:w-1/3 shrink-0">
+              <FadeIn delay={0.1}>
+                <div className="bg-surface-container p-8 md:p-12 sticky top-32">
+                  <h3 className="font-headline text-2xl text-on-surface mb-8 uppercase tracking-tight">Proje Detayları</h3>
+                  
+                  <div className="flex flex-col gap-8">
+                    {project.location && (
+                      <div className="flex flex-col pl-4 border-l-2 border-primary">
+                        <span className="text-xs font-headline uppercase tracking-widest text-on-surface-variant mb-1">Konum</span>
+                        <span className="text-lg text-secondary">{project.location}</span>
+                      </div>
+                    )}
+                    
+                    {project.category && (
+                      <div className="flex flex-col pl-4 border-l-2 border-primary">
+                        <span className="text-xs font-headline uppercase tracking-widest text-on-surface-variant mb-1">Kategori</span>
+                        <span className="text-lg text-secondary capitalize">{project.category}</span>
+                      </div>
+                    )}
+
+                    {project.status && (
+                      <div className="flex flex-col pl-4 border-l-2 border-primary">
+                        <span className="text-xs font-headline uppercase tracking-widest text-on-surface-variant mb-1">Durum</span>
+                        <span className="text-lg text-secondary capitalize">{project.status.replace('-', ' ')}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </FadeIn>
+            </div>
+            
+            {/* Main Content */}
+            <div className="w-full lg:w-2/3 prose prose-headings:font-headline prose-headings:uppercase prose-headings:tracking-tight prose-a:text-primary max-w-none text-on-surface prose-p:text-on-surface prose-strong:text-on-surface prose-li:text-on-surface">
+              <FadeIn delay={0.2}>
+                {project.body ? (
+                  <RichText value={project.body} />
+                ) : (
+                  <p>Bu proje için henüz detaylı içerik eklenmemiştir.</p>
+                )}
+              </FadeIn>
+            </div>
+            
+          </div>
+        </div>
+      </section>
+
+      {/* Gallery Section */}
+      {project.gallery && project.gallery.length > 0 && (
+        <section className="bg-surface py-20 md:py-32">
+          <div className="w-full px-4 md:px-12" style={{ boxSizing: "border-box" }}>
+            <FadeIn>
+              <h2 className="text-4xl md:text-5xl font-black font-headline text-on-surface leading-[1.1] uppercase mb-16 tracking-tight">
+                Galeri
+              </h2>
+            </FadeIn>
+            <FadeIn delay={0.1}>
+              <Lightbox images={project.gallery} />
+            </FadeIn>
+          </div>
+        </section>
+      )}
     </article>
   );
 }

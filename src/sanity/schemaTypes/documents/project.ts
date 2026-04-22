@@ -81,6 +81,18 @@ export const projectType = defineType({
         },
       ],
     }),
+    defineField({
+      name: "gallery",
+      title: "Galeri",
+      type: "array",
+      of: [
+        {
+          type: "image",
+          options: { hotspot: true },
+          fields: [defineField({ name: "alt", title: "Alt Metni", type: "string" })],
+        },
+      ],
+    }),
     defineField({ name: "seo", title: "SEO", type: "seo" }),
   ],
 });

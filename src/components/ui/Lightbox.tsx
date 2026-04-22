@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SanityImage } from "@/components/ui/SanityImage";
-import { Expand, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Expand } from "lucide-react";
 import { urlForImage } from "@/sanity/lib/image";
 
 /**
@@ -31,24 +31,34 @@ function prefetchLightboxImage(image: any) {
   }
 }
 
-interface LightboxGalleryProps {
+interface LightboxProps {
   images: any[];
 }
 
-export function LightboxGallery({ images }: LightboxGalleryProps) {
+export function Lightbox({ images }: LightboxProps) {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedImage === null) return;
-      if (e.key === "Escape") setSelectedImage(null);
+      if (e.key === "Escape") handleClose();
       if (e.key === "ArrowLeft") paginate(-1);
       if (e.key === "ArrowRight") paginate(1);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedImage, images.length]);
+
+  const handleOpen = (index: number) => {
+    setSelectedImage(index);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleClose = () => {
+    setSelectedImage(null);
+    document.body.style.overflow = "";
+  };
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
@@ -83,20 +93,19 @@ export function LightboxGallery({ images }: LightboxGalleryProps) {
 
   return (
     <>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0 mb-16">
         {images.map((image, i) => (
           <div
-            key={i}
-            className="group relative cursor-pointer overflow-hidden rounded-sm aspect-[4/3] bg-backgroundLight"
-            onClick={() => setSelectedImage(i)}
+            key={image._key || `${image.asset?._id}-${i}`}
+            className="group relative cursor-pointer overflow-hidden aspect-square bg-surface-container"
+            onClick={() => handleOpen(i)}
             onMouseEnter={() => prefetchLightboxImage(image)}
           >
             <SanityImage
               image={image}
-              width={800}
-              height={600}
-              sizes="(max-width: 768px) 50vw, 33vw"
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-1000 group-hover:scale-110"
             />
             {/* Hover overlay with icon */}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500 flex items-center justify-center">
@@ -114,20 +123,20 @@ export function LightboxGallery({ images }: LightboxGalleryProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 px-4 md:px-12 backdrop-blur-sm touch-none"
-            onClick={() => setSelectedImage(null)}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-surface/95 backdrop-blur-xl px-4 md:px-12 touch-none"
+            onClick={handleClose}
           >
             {/* Top Bar */}
             <div className="absolute top-0 left-0 right-0 p-6 md:p-10 flex justify-between items-center z-10">
-              <div className="text-white font-display text-sm tracking-[0.2em] uppercase opacity-70">
+              <div className="text-on-surface/70 font-headline text-sm tracking-[0.2em] uppercase">
                 {selectedImage + 1}{" "}
-                <span className="mx-2 text-white/30">/</span> {images.length}
+                <span className="mx-2 opacity-30">/</span> {images.length}
               </div>
               <button
-                className="w-12 h-12 flex items-center justify-center text-white/50 hover:text-white transition-colors cursor-pointer group"
+                className="w-12 h-12 flex items-center justify-center text-on-surface/50 hover:text-primary transition-all cursor-pointer group"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSelectedImage(null);
+                  handleClose();
                 }}
               >
                 <X
@@ -141,7 +150,7 @@ export function LightboxGallery({ images }: LightboxGalleryProps) {
             {images.length > 1 && (
               <>
                 <button
-                  className="hidden md:flex absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
+                  className="hidden md:flex absolute left-4 md:left-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-on-surface/40 hover:text-primary transition-all cursor-pointer z-20 group"
                   onClick={(e) => {
                     e.stopPropagation();
                     paginate(-1);
@@ -153,7 +162,7 @@ export function LightboxGallery({ images }: LightboxGalleryProps) {
                   />
                 </button>
                 <button
-                  className="hidden md:flex absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-white/40 hover:text-white transition-all cursor-pointer z-20 group"
+                  className="hidden md:flex absolute right-4 md:right-10 top-1/2 -translate-y-1/2 w-16 h-16 items-center justify-center text-on-surface/40 hover:text-primary transition-all cursor-pointer z-20 group"
                   onClick={(e) => {
                     e.stopPropagation();
                     paginate(1);
@@ -184,13 +193,11 @@ export function LightboxGallery({ images }: LightboxGalleryProps) {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={1}
                 onDragEnd={(e, { offset, velocity }) => {
-                  if (offset.x > 100 || (offset.x > 20 && velocity.x > 500)) {
-                    paginate(-1);
-                  } else if (
-                    offset.x < -100 ||
-                    (offset.x < -20 && velocity.x < -500)
-                  ) {
+                  const swipe = offset.x * velocity.x;
+                  if (swipe < -10000 || offset.x < -100) {
                     paginate(1);
+                  } else if (swipe > 10000 || offset.x > 100) {
+                    paginate(-1);
                   }
                 }}
                 className="absolute w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
@@ -200,10 +207,11 @@ export function LightboxGallery({ images }: LightboxGalleryProps) {
                   image={images[selectedImage]}
                   fill
                   fit="max"
-                  quality={90}
-                  sizes="(max-width: 1920px) 100vw, 1920px"
-                  className="pointer-events-none select-none"
+                  quality={95}
+                  sizes="100vw"
+                  className="pointer-events-none select-none object-contain"
                   objectFit="contain"
+                  priority
                 />
               </motion.div>
             </div>
