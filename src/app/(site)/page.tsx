@@ -27,13 +27,13 @@ export default async function HomePage() {
   );
 
   return (
-    <>
+    <div id="home-page">
       <HeroSection data={data} />
       <HomeAbout data={data} />
       <HomeServices data={data} />
       <HomeWhyUs data={data} />
       <HomeProjects data={data} />
       <HomeCta data={data} />
-    </>
+    </div>
   );
 }
