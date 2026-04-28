@@ -35,11 +35,13 @@ export function Header({
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const links: NavItem[] = navigation?.headerLinks || [];
   // Menü açıldığındaki scroll pozisyonunu sakla — cleanup çalışsa bile kaybolmasın
   const savedScrollY = useRef(0);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
@@ -92,7 +94,8 @@ export function Header({
   };
 
   const isHomePage = pathname === "/";
-  const isTransparent = isHomePage && !scrolled && !menuOpen;
+  // Force client-side evaluation to fix ISR hydration bug
+  const isTransparent = mounted && isHomePage && !scrolled && !menuOpen;
 
   return (
     <header
