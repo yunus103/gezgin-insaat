@@ -28,8 +28,6 @@ const CATEGORY_LABELS: Record<string, string> = {
 const STATUS_LABELS: Record<string, string> = {
   "tamamlandi": "Tamamlandı",
   "devam-ediyor": "Devam Ediyor",
-  "satista": "Satışta",
-  "planlama": "Planlama",
 };
 
 type Props = { params: Promise<{ slug: string }> };

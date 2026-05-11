@@ -51,8 +51,6 @@ export const projectType = defineType({
         list: [
           { title: "Tamamlandı", value: "tamamlandi" },
           { title: "Devam Ediyor", value: "devam-ediyor" },
-          { title: "Satışta", value: "satista" },
-          { title: "Planlama", value: "planlama" },
         ],
       },
       initialValue: "tamamlandi",
