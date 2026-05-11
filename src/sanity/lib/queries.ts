@@ -8,7 +8,7 @@ export const layoutQuery = groq`{
     logo { asset->{ _id, url, metadata { lqip, dimensions } }, hotspot, crop },
     logoHeight,
     favicon { asset->{ _id, url } },
-    contactInfo { phone, email, address, whatsappNumber, mapIframe },
+    contactInfo { phone, email, address, address2, whatsappNumber, mapIframe },
     socialLinks[] { platform, url },
     gaId, gtmId, googleSearchConsoleId
   },
@@ -78,7 +78,7 @@ export const contactPageQuery = groq`{
     contactInfoTitle, formTitle, successMessage, seo
   },
   "settings": *[_type == "siteSettings"][0] {
-    contactInfo { phone, email, address, mapIframe },
+    contactInfo { phone, email, address, address2, mapIframe },
     socialLinks[] { platform, url }
   }
 }`;

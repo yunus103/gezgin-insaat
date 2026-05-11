@@ -104,25 +104,38 @@ export function Footer({ settings, navigation }: { settings: any; navigation: an
           <div className="lg:col-span-5 space-y-6">
             <h3 className="font-headline text-[10px] font-bold uppercase tracking-[0.3em] text-primary">İletişim</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {contact?.address && (
-                <div className="col-span-1 md:col-span-2 flex gap-3 group">
-                  <RiMapPinLine size={18} className="text-primary shrink-0 mt-0.5" />
-                  <p className="text-sm font-medium leading-relaxed text-on-surface-variant">{contact.address}</p>
-                </div>
+              {contact?.email && (
+                <a href={`mailto:${contact.email}`} className="flex gap-3 group items-center">
+                  <RiMailLine size={18} className="text-primary shrink-0" />
+                  <p className="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">{contact.email}</p>
+                </a>
               )}
-              
+
               {contact?.phone && (
                 <a href={`tel:${contact.phone}`} className="flex gap-3 group items-center">
                   <RiPhoneLine size={18} className="text-primary shrink-0" />
                   <p className="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">{contact.phone}</p>
                 </a>
               )}
-              
-              {contact?.email && (
-                <a href={`mailto:${contact.email}`} className="flex gap-3 group items-center">
-                  <RiMailLine size={18} className="text-primary shrink-0" />
-                  <p className="text-sm font-medium text-on-surface-variant group-hover:text-primary transition-colors">{contact.email}</p>
-                </a>
+
+              {contact?.address && (
+                <div className="col-span-1 md:col-span-2 flex gap-3 group">
+                  <RiMapPinLine size={18} className="text-primary shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <p className="text-xs font-bold text-primary uppercase tracking-widest">Merkez</p>
+                    <p className="text-sm font-medium leading-relaxed text-on-surface-variant">{contact.address}</p>
+                  </div>
+                </div>
+              )}
+
+              {contact?.address2 && (
+                <div className="col-span-1 md:col-span-2 flex gap-3 group">
+                  <RiMapPinLine size={18} className="text-primary shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <p className="text-xs font-bold text-primary uppercase tracking-widest">Şube</p>
+                    <p className="text-sm font-medium leading-relaxed text-on-surface-variant">{contact.address2}</p>
+                  </div>
+                </div>
               )}
             </div>
           </div>

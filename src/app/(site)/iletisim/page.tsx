@@ -112,10 +112,28 @@ export default async function ContactPage() {
                         />
                         <div>
                           <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">
-                            Adres
+                            Merkez Adres
                           </h3>
                           <p className="text-secondary leading-relaxed whitespace-pre-line">
                             {address}
+                          </p>
+                        </div>
+                      </div>
+                    </FadeIn>
+                  )}
+                  {settings?.contactInfo?.address2 && (
+                    <FadeIn direction="right" delay={0.05}>
+                      <div className="flex items-start gap-5">
+                        <RiMapPin2Line
+                          className="text-primary mt-1 shrink-0"
+                          size={22}
+                        />
+                        <div>
+                          <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">
+                            Şube Adres
+                          </h3>
+                          <p className="text-secondary leading-relaxed whitespace-pre-line">
+                            {settings.contactInfo.address2}
                           </p>
                         </div>
                       </div>
