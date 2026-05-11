@@ -18,10 +18,12 @@ interface AboutHistoryProps {
 
 export function AboutHistory({ data }: AboutHistoryProps) {
   const preTitle = data?.historyPreTitle || "MİRASIMIZ";
-  const title = data?.historyTitle || "1990’dan Bugüne, \nHer Taşın Altında Bir Mükemmeliyet Hikayesi.";
-  
+  const title =
+    data?.historyTitle ||
+    "1990’dan Bugüne, \nHer Taşın Altında Bir Mükemmeliyet Hikayesi.";
+
   return (
-    <section className="py-16 md:py-24 px-4 md:px-12 bg-surface max-w-[1920px] mx-auto min-h-[calc(100vh-5rem)] flex items-center">
+    <section className="py-16 md:py-22 px-4 md:px-12 bg-surface max-w-[1920px] mx-auto min-h-[calc(100vh-5rem)] flex items-center">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 w-full">
         <div className="lg:col-span-5 flex flex-col justify-center">
           <FadeIn direction="right">
@@ -36,27 +38,41 @@ export function AboutHistory({ data }: AboutHistoryProps) {
                 <RichText value={data.historyText} />
               ) : (
                 <>
-                  <p>Gezgin İnşaat, 90'lı yılların başında mütevazı bir aile girişimi olarak temellerini attı. Kuruluşumuzdan itibaren, inşa ettiğimiz her yapının sadece bir beton yığını değil, yaşayan bir organizma olduğunun bilinciyle hareket ettik.</p>
-                  <p>Otuz yılı aşkın süredir, Türkiye'nin değişen mimari siluetinde güvenilirliğin ve estetiğin simgesi haline gelerek, binlerce aileyi güvenli yuvalarına, yüzlerce markayı modern çalışma alanlarına kavuşturduk.</p>
+                  <p>
+                    Gezgin İnşaat, 90'lı yılların başında mütevazı bir aile
+                    girişimi olarak temellerini attı. Kuruluşumuzdan itibaren,
+                    inşa ettiğimiz her yapının sadece bir beton yığını değil,
+                    yaşayan bir organizma olduğunun bilinciyle hareket ettik.
+                  </p>
+                  <p>
+                    Otuz yılı aşkın süredir, Türkiye'nin değişen mimari
+                    siluetinde güvenilirliğin ve estetiğin simgesi haline
+                    gelerek, binlerce aileyi güvenli yuvalarına, yüzlerce
+                    markayı modern çalışma alanlarına kavuşturduk.
+                  </p>
                 </>
               )}
             </div>
           </FadeIn>
         </div>
-        
+
         <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <FadeIn direction="up" delay={0.2} className="space-y-4 pt-0 sm:pt-12">
+          <FadeIn
+            direction="up"
+            delay={0.2}
+            className="space-y-4 pt-0 sm:pt-12"
+          >
             {data?.historyImage1 ? (
-              <SanityImage 
+              <SanityImage
                 image={data.historyImage1}
                 width={600}
                 height={600}
-                className="w-full max-h-[35vh] sm:max-h-[40vh] object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+                className="w-full max-h-[35vh] sm:max-h-[40vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
             ) : (
-              <img 
-                alt="Brutalist concrete architecture detail" 
-                className="w-full max-h-[35vh] sm:max-h-[40vh] object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+              <img
+                alt="Brutalist concrete architecture detail"
+                className="w-full max-h-[35vh] sm:max-h-[40vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuKl70aqBJvJh8lQ1Kz-8Gp6dzpmS-6exYCuc8kZmkdYuIyjM2G5sdVyxyH5sBS7V_KWYaSuy3zZyt2vaD_6opt1C5M19uYrTIIJWfZLyrv2gkA7kcpF7WGYfDsXsK-wE8_mLwOgoqCvp0ylPPPthaSXxIzSEMLB5Uiev-r3O9fO699_21XxwiXTX5-Rkl7tGuNdmDj2asNPjciociAoJRne2zDug5ATH8Pu0AUGMR8TZ-VipH2tKlFC-Vz_H7qV0c0IHehpHBu4Q"
               />
             )}
@@ -69,7 +85,7 @@ export function AboutHistory({ data }: AboutHistoryProps) {
               </p>
             </div>
           </FadeIn>
-          
+
           <FadeIn direction="up" delay={0.4} className="space-y-4">
             <div className="p-8 bg-gradient-to-tr from-primary to-primary-container text-on-primary">
               <h3 className="text-5xl font-headline font-black mb-2">
@@ -80,16 +96,16 @@ export function AboutHistory({ data }: AboutHistoryProps) {
               </p>
             </div>
             {data?.historyImage2 ? (
-              <SanityImage 
+              <SanityImage
                 image={data.historyImage2}
                 width={600}
                 height={800}
-                className="w-full max-h-[40vh] sm:max-h-[50vh] object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+                className="w-full max-h-[40vh] sm:max-h-[50vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
             ) : (
-              <img 
-                alt="Modern construction site" 
-                className="w-full max-h-[40vh] sm:max-h-[50vh] object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+              <img
+                alt="Modern construction site"
+                className="w-full max-h-[40vh] sm:max-h-[50vh] object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbEzm6sl1q5GW8s5Z-QVyFwH6xkGcTORvAlmhg92SQt6fYACwgiKgS2zmpsQ5Fk5ZLmOwgMTHsRhNCuI9Fe8tM4N_bDXItTHqWt0jzBMJErVEQG0TFum2ZW8e0GbUgLN8RxkAZFm1Wd3Okxa7TUt60O4IxvlCvXoATnHTS_qvf2ey8I0gNhxblbcgDiSLNX3qUjYFSkpQcj5zJNg4w_TGVZFLvVgK-mr005l4hQOsDb9Y9W_FQHjcPpN6LlTN7EwsUJof-lByvPU0"
               />
             )}

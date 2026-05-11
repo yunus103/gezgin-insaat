@@ -7,8 +7,8 @@ export const aboutPageType = defineType({
   groups: [
     { name: "hero", title: "Hero Section" },
     { name: "history", title: "History Section" },
+    { name: "content", title: "İçerik Bölümü" },
     { name: "values", title: "Values Section" },
-    { name: "quality", title: "Quality & Certificates" },
     { name: "sustainability", title: "Sustainability" },
     { name: "cta", title: "CTA Section" },
     { name: "seo", title: "SEO" },
@@ -48,6 +48,10 @@ export const aboutPageType = defineType({
     defineField({ name: "historyImage2Label", title: "Görsel 2 Etiket (Örn: 2024)", type: "string", group: "history" }),
     defineField({ name: "historyImage2Sublabel", title: "Görsel 2 Alt Etiket", type: "string", group: "history" }),
 
+    // --- CONTENT SECTION ---
+    defineField({ name: "contentTitle", title: "Bölüm Başlığı", type: "string", group: "content" }),
+    defineField({ name: "contentBody", title: "Bölüm Metni", type: "array", of: [{ type: "block" }, { type: "image", options: { hotspot: true } }], group: "content" }),
+
     // --- VALUES SECTION ---
     defineField({
       name: "values",
@@ -60,42 +64,6 @@ export const aboutPageType = defineType({
           fields: [
             defineField({ name: "title", title: "Başlık", type: "string" }),
             defineField({ name: "description", title: "Açıklama", type: "text", rows: 3 }),
-          ]
-        }
-      ]
-    }),
-
-    // --- QUALITY SECTION ---
-    defineField({ name: "qualityPreTitle", title: "Kalite Üst Başlık", type: "string", group: "quality" }),
-    defineField({ name: "qualityTitle", title: "Kalite Başlık", type: "string", group: "quality" }),
-    defineField({ name: "qualityDescription", title: "Kalite Açıklaması", type: "text", rows: 3, group: "quality" }),
-    defineField({
-      name: "qualityCertificates",
-      title: "Sertifikalar",
-      type: "array",
-      group: "quality",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "icon", title: "React Icon Adı (Örn: RiVerifiedBadgeLine)", type: "string" }),
-            defineField({ name: "title", title: "Sertifika Başlığı", type: "string" }),
-            defineField({ name: "subtitle", title: "Alt Etiket", type: "string" }),
-          ]
-        }
-      ]
-    }),
-    defineField({
-      name: "qualityStats",
-      title: "Kalite İstatistikleri",
-      type: "array",
-      group: "quality",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({ name: "value", title: "Değer", type: "string" }),
-            defineField({ name: "label", title: "Etiket", type: "string" }),
           ]
         }
       ]

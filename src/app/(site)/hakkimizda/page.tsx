@@ -4,8 +4,8 @@ import { aboutPageQuery } from "@/sanity/lib/queries";
 import { buildMetadata } from "@/lib/seo";
 import { AboutHero } from "@/components/about/AboutHero";
 import { AboutHistory } from "@/components/about/AboutHistory";
+import { AboutRichText } from "@/components/about/AboutRichText";
 import { AboutValues } from "@/components/about/AboutValues";
-import { AboutQuality } from "@/components/about/AboutQuality";
 import { AboutSustainability } from "@/components/about/AboutSustainability";
 import { AboutCta } from "@/components/about/AboutCta";
 
@@ -25,8 +25,8 @@ export default async function AboutPage() {
     <>
       <AboutHero data={data} />
       <AboutHistory data={data} />
+      <AboutRichText data={data} />
       <AboutValues data={data} />
-      <AboutQuality data={data} />
       <AboutSustainability data={data} />
       <AboutCta data={data} />
     </>

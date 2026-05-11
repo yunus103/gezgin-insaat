@@ -20,7 +20,11 @@ const SOCIAL_ICON_MAP: Record<string, string> = {
 };
 
 export async function generateMetadata() {
-  const { page } = await client.fetch(contactPageQuery, {}, { next: { tags: ["contact"] } });
+  const { page } = await client.fetch(
+    contactPageQuery,
+    {},
+    { next: { tags: ["contact"] } },
+  );
   return buildMetadata({ pageSeo: page?.seo, title: "İletişim" });
 }
 
@@ -28,7 +32,7 @@ export default async function ContactPage() {
   const { page, settings } = await client.fetch(
     contactPageQuery,
     {},
-    { next: { tags: ["contact"] } }
+    { next: { tags: ["contact"] } },
   );
 
   const heroTitle = page?.heroTitle || "İletişim";
@@ -44,7 +48,8 @@ export default async function ContactPage() {
   const email = settings?.contactInfo?.email;
   const address = settings?.contactInfo?.address;
   const mapIframe = settings?.contactInfo?.mapIframe;
-  const socialLinks: { platform: string; url: string }[] = settings?.socialLinks || [];
+  const socialLinks: { platform: string; url: string }[] =
+    settings?.socialLinks || [];
 
   return (
     <>
@@ -79,7 +84,9 @@ export default async function ContactPage() {
         {/* Badge bottom-right */}
         <div className="absolute bottom-0 right-0 w-64 bg-surface-container-highest/50 backdrop-blur-sm p-8 hidden lg:flex items-end">
           <div className="border-l-2 border-primary pl-5">
-            <p className="text-sm uppercase tracking-widest font-bold text-on-surface">{badge1}</p>
+            <p className="text-sm uppercase tracking-widest font-bold text-on-surface">
+              {badge1}
+            </p>
             <p className="text-xs text-secondary mt-1">{badge2}</p>
           </div>
         </div>
@@ -89,7 +96,6 @@ export default async function ContactPage() {
       <section className="bg-surface py-16 md:py-24">
         <div className="max-w-[1920px] mx-auto px-4 md:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
-
             {/* Contact info column */}
             <div className="lg:col-span-5 space-y-12">
               <div>
@@ -100,10 +106,17 @@ export default async function ContactPage() {
                   {address && (
                     <FadeIn direction="right">
                       <div className="flex items-start gap-5">
-                        <RiMapPin2Line className="text-primary mt-1 shrink-0" size={22} />
+                        <RiMapPin2Line
+                          className="text-primary mt-1 shrink-0"
+                          size={22}
+                        />
                         <div>
-                          <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">Adres</h3>
-                          <p className="text-secondary leading-relaxed whitespace-pre-line">{address}</p>
+                          <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">
+                            Adres
+                          </h3>
+                          <p className="text-secondary leading-relaxed whitespace-pre-line">
+                            {address}
+                          </p>
                         </div>
                       </div>
                     </FadeIn>
@@ -111,10 +124,18 @@ export default async function ContactPage() {
                   {phone && (
                     <FadeIn direction="right" delay={0.1}>
                       <div className="flex items-start gap-5">
-                        <RiPhoneLine className="text-primary mt-1 shrink-0" size={22} />
+                        <RiPhoneLine
+                          className="text-primary mt-1 shrink-0"
+                          size={22}
+                        />
                         <div>
-                          <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">Telefon</h3>
-                          <a href={`tel:${phone}`} className="text-secondary hover:text-primary transition-colors">
+                          <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">
+                            Telefon
+                          </h3>
+                          <a
+                            href={`tel:${phone}`}
+                            className="text-secondary hover:text-primary transition-colors"
+                          >
                             {phone}
                           </a>
                         </div>
@@ -124,10 +145,18 @@ export default async function ContactPage() {
                   {email && (
                     <FadeIn direction="right" delay={0.2}>
                       <div className="flex items-start gap-5">
-                        <RiMailLine className="text-primary mt-1 shrink-0" size={22} />
+                        <RiMailLine
+                          className="text-primary mt-1 shrink-0"
+                          size={22}
+                        />
                         <div>
-                          <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">E-posta</h3>
-                          <a href={`mailto:${email}`} className="text-secondary hover:text-primary transition-colors">
+                          <h3 className="font-bold text-xs tracking-widest uppercase mb-2 text-on-surface">
+                            E-posta
+                          </h3>
+                          <a
+                            href={`mailto:${email}`}
+                            className="text-secondary hover:text-primary transition-colors"
+                          >
                             {email}
                           </a>
                         </div>
@@ -154,7 +183,8 @@ export default async function ContactPage() {
                           className="text-secondary hover:text-primary transition-colors flex items-center gap-2 group"
                         >
                           <span className="text-xs font-bold tracking-widest uppercase">
-                            {SOCIAL_ICON_MAP[link.platform?.toLowerCase()] || link.platform}
+                            {SOCIAL_ICON_MAP[link.platform?.toLowerCase()] ||
+                              link.platform}
                           </span>
                           <RiArrowRightUpLine
                             size={14}
@@ -188,11 +218,7 @@ export default async function ContactPage() {
           dangerouslySetInnerHTML={{ __html: mapIframe }}
         />
       ) : (
-        <section className="w-full h-[45vh] max-h-[500px] bg-surface-container-highest flex items-center justify-center">
-          <p className="text-secondary text-sm tracking-widest uppercase">
-            Harita kodu Sanity &gt; Site Ayarları &gt; İletişim Bilgileri alanından eklenebilir.
-          </p>
-        </section>
+        <></>
       )}
     </>
   );

@@ -57,10 +57,12 @@ export const aboutPageQuery = groq`*[_type == "aboutPage"][0] {
   historyImage2Label, historyImage2Sublabel,
 
   values[] { title, description },
-
-  qualityPreTitle, qualityTitle, qualityDescription,
-  qualityCertificates[] { icon, title, subtitle },
-  qualityStats[] { value, label },
+  
+  contentTitle,
+  contentBody[] {
+    ...,
+    _type == "image" => { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop }
+  },
 
   sustainabilityPreTitle, sustainabilityTitle, sustainabilityDescription,
   sustainabilityImage { asset->{ _id, url, metadata { lqip, dimensions } }, alt, hotspot, crop },
