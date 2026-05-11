@@ -7,14 +7,18 @@ import { ProjectsCta } from "@/components/projects/ProjectsCta";
 import { buildMetadata } from "@/lib/seo";
 
 export async function generateMetadata() {
-  const data = await client.fetch(projectsPageQuery, {}, { next: { tags: ["projectsPage"] } });
+  const data = await client.fetch(
+    projectsPageQuery,
+    {},
+    { next: { tags: ["projectsPage"] } },
+  );
   return buildMetadata({ pageSeo: data?.seo, title: "Projelerimiz" });
 }
 
 export default async function ProjectsPage() {
   const [data, projects] = await Promise.all([
     client.fetch(projectsPageQuery, {}, { next: { tags: ["projectsPage"] } }),
-    client.fetch(projectListQuery, {}, { next: { tags: ["project"] } }),
+    client.fetch(projectListQuery, {}, { next: { tags: ["projects"] } }),
   ]);
 
   return (
