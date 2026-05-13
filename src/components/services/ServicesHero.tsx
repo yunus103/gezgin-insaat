@@ -10,7 +10,7 @@ export function ServicesHero({ data }: { data: any }) {
       <div className="max-w-[1920px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-end w-full">
         <div className="md:col-span-8">
           <FadeIn direction="up">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-headline font-extrabold tracking-tighter text-primary leading-none mb-6">
+            <h1 className="text-4xl md:text-7xl lg:text-8xl font-headline font-extrabold tracking-tighter text-primary leading-none mb-6 break-words">
               {title}
             </h1>
             <p className="text-base md:text-lg text-secondary max-w-2xl font-light leading-relaxed border-l-4 border-primary pl-4 md:pl-6">

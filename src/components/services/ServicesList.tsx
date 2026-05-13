@@ -18,7 +18,7 @@ export function ServicesList({ services }: { services: any[] }) {
         const features = service?.features || ["Lüks Villalar", "Akıllı Rezidanslar", "Tarihi Restorasyon", "Karma Konut Siteleri"];
 
         return (
-          <div key={index} className="grid grid-cols-1 lg:grid-cols-2 min-h-[50vh] xl:min-h-[60vh] max-h-[100vh] flex items-stretch border-b border-outline-variant/20 last:border-0">
+          <div key={index} className="grid grid-cols-1 lg:grid-cols-2 border-b border-outline-variant/20 last:border-0">
             {/* CONTENT SIDE */}
             <div className={cn(
               "px-6 py-16 md:p-16 lg:p-24 flex flex-col justify-center bg-surface-container",
@@ -47,7 +47,7 @@ export function ServicesList({ services }: { services: any[] }) {
 
             {/* IMAGE SIDE */}
             <div className={cn(
-              "relative min-h-[300px] h-[40vh] lg:h-auto lg:min-h-[50vh]",
+              "relative w-full h-[50vw] min-h-[260px] lg:h-auto lg:min-h-[520px]",
               !isEven && "lg:order-1"
             )}>
               {service?.mainImage ? (
