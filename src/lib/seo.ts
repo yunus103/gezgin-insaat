@@ -50,7 +50,9 @@ export async function buildMetadata(params: BuildMetadataParams = {}): Promise<M
     title = pageTitle ? `${pageTitle} | ${siteName}` : siteName;
   }
 
-  const description = params.pageSeo?.metaDescription || params.description || defaults?.description;
+  const hardcodedDescription = "Gezgin İnşaat olarak modern mimari, sağlam mühendislik ve yenilikçi yaklaşımlarımızla hayalinizdeki yaşam alanlarını inşa ediyoruz.";
+  const description = params.pageSeo?.metaDescription || params.description || defaults?.description || hardcodedDescription;
+  
   const ogImageSource = params.pageSeo?.ogImage || params.ogImage || defaults?.ogImage;
   const siteUrl = getSiteUrl();
   const canonicalUrl =
@@ -78,6 +80,8 @@ export async function buildMetadata(params: BuildMetadataParams = {}): Promise<M
       description: description || "",
       ...(ogImageUrl && { images: [{ url: ogImageUrl, width: 1200, height: 630 }] }),
       locale: "tr_TR",
+      url: canonicalUrl || siteUrl,
+      siteName: siteName,
       type: "website",
     },
     twitter: {
